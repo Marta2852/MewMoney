@@ -1,0 +1,63 @@
+.navigation {
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    min-height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #666;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.nav-links a:hover {
+    color: #222;
+}
+
+.nav-links a.active {
+    color: #222;
+    font-weight: 600;
+}
+
+.disabled-link {
+    cursor: default;
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #555;
+}
+
+.nav-user button {
+    border: none;
+    background: none;
+    color: #666;
+    cursor: pointer;
+}
+
+.nav-user button:hover {
+    color: #222;
+}
