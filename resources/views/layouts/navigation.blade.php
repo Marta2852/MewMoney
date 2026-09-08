@@ -13,7 +13,8 @@
                 Dashboard
             </a>
 
-            <a href="#" class="disabled-link">
+            <a href="{{ route('transactions') }}"
+               class="{{ request()->routeIs('transactions') ? 'active' : '' }}">
                 Transactions
             </a>
 

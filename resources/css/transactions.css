@@ -1,0 +1,110 @@
+.transactions {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+.transactions h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.transactions-subtitle {
+    color: #666;
+}
+
+.category-form,
+.transaction-form {
+    background: white;
+    padding: 24px;
+    margin-top: 30px;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+}
+
+.category-form h2,
+.transaction-form h2 {
+    margin-bottom: 20px;
+}
+
+.category-form form,
+.transaction-form form {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.category-form input,
+.category-form select,
+.transaction-form input,
+.transaction-form select {
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+}
+
+.category-form button,
+.transaction-form button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #222;
+    color: white;
+    cursor: pointer;
+}
+
+.expense-section {
+    margin-top: 35px;
+}
+
+.expense-section h2 {
+    margin-bottom: 15px;
+}
+
+.expense-filters {
+    display: flex;
+    gap: 10px;
+}
+
+.expense-filters button {
+    padding: 8px 18px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+}
+
+.expense-filters button:hover {
+    background: #f5f5f5;
+}
+
+.transaction-list {
+    margin-top: 20px;
+}
+
+.transaction-card {
+    background: white;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.transaction-info p {
+    margin-top: 5px;
+    color: #777;
+    font-size: 14px;
+}
+
+.transaction-amount {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.no-transactions {
+    color: #777;
+}
