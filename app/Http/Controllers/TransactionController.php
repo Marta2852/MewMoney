@@ -6,22 +6,53 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    public function index()
-    {
-        $transactions = auth()->user()->transactions()
-            ->with(['account', 'category'])
-            ->latest('transaction_date')
-            ->get();
+    public function index(Request $request)
+{
+    $period = $request->input('period', 'month');
+    $date = $request->input(
+        'date',
+        $period === 'month'
+            ? now()->format('Y-m')
+            : now()->format('Y-m-d')        
+    );
 
-        $accounts = auth()->user()->accounts;
-        $categories = auth()->user()->categories;
+    $query = auth()->user()->transactions()
+        ->with(['account', 'category'])
+        ->where('transaction_type', 'expense');
 
-        return view('transactions.index', compact(
-            'transactions',
-            'accounts',
-            'categories'
-        ));
+    if ($period === 'month') {
+        $query->whereMonth('transaction_date', date('m', strtotime($date)))
+              ->whereYear('transaction_date', date('Y', strtotime($date)));
     }
+
+    if ($period === 'day') {
+        $query->whereDate('transaction_date', $date);
+    }
+
+    if ($period === 'week') {
+        $selectedDate = \Carbon\Carbon::parse($date);
+
+        $query->whereBetween('transaction_date', [
+            $selectedDate->copy()->startOfWeek(),
+            $selectedDate->copy()->endOfWeek()
+        ]);
+    }
+
+    $transactions = $query
+        ->latest('transaction_date')
+        ->get();
+
+    $accounts = auth()->user()->accounts;
+    $categories = auth()->user()->categories;
+
+    return view('transactions.index', compact(
+        'transactions',
+        'accounts',
+        'categories',
+        'period',
+        'date'
+    ));
+}
 
     public function store(Request $request)
     {

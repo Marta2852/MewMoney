@@ -118,15 +118,61 @@
 
 
         <!-- Expense filters -->
-        <div class="expense-section">
+        <div class="expense-filters">
 
-            <h2>Expenses</h2>
+            <a href="{{ route('transactions', ['period' => 'day']) }}"
+            class="{{ $period === 'day' ? 'active' : '' }}">
+                Day
+            </a>
 
-            <div class="expense-filters">
-                <button type="button">Day</button>
-                <button type="button">Week</button>
-                <button type="button">Month</button>
-            </div>
+            <a href="{{ route('transactions', ['period' => 'week']) }}"
+            class="{{ $period === 'week' ? 'active' : '' }}">
+                Week
+            </a>
+
+            <a href="{{ route('transactions', ['period' => 'month']) }}"
+            class="{{ $period === 'month' ? 'active' : '' }}">
+                Month
+            </a>
+
+            @if ($period === 'day')
+                <form method="GET" action="{{ route('transactions') }}">
+                    <input type="hidden" name="period" value="day">
+
+                    <input
+                        type="date"
+                        name="date"
+                        value="{{ $date }}"
+                        onchange="this.form.submit()"
+                    >
+                </form>
+            @endif
+
+            @if ($period === 'week')
+                <form method="GET" action="{{ route('transactions') }}">
+                    <input type="hidden" name="period" value="week">
+
+                    <input
+                        type="date"
+                        name="date"
+                        value="{{ $date }}"
+                        onchange="this.form.submit()"
+                    >
+                </form>
+            @endif
+
+            @if ($period === 'month')
+                <form method="GET" action="{{ route('transactions') }}">
+                    <input type="hidden" name="period" value="month">
+
+                    <input
+                        type="month"
+                        name="date"
+                        value="{{ $date }}"
+                        onchange="this.form.submit()"
+                    >
+                </form>
+            @endif
 
         </div>
 
@@ -197,4 +243,4 @@
     </script>
 
 </x-app-layout>
-```
+
