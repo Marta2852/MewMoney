@@ -5,8 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SavingsGoalController;
 use App\Models\Account;
 use App\Models\Transaction;
+use App\Models\SavingsGoal;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -36,6 +38,17 @@ Route::post('/transactions', [TransactionController::class, 'store'])
 Route::post('/categories', [CategoryController::class, 'store'])
     ->middleware(['auth'])
     ->name('categories.store');
+
+Route::get('/savings', [SavingsGoalController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('savings');
+
+Route::post('/savings', [SavingsGoalController::class, 'store'])
+    ->middleware(['auth'])
+    ->name('savings.store');
+
+Route::post('/savings/add', [SavingsGoalController::class, 'addMoney'])
+    ->name('savings.add');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

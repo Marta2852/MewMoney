@@ -10,8 +10,9 @@ class AccountController extends Controller
     {
 
         $accounts = auth()->user()->accounts;
+        $savings = auth()->user()->savingsGoals()->sum('current_amount');
 
-        return view('accounts.index', compact('accounts'));
+        return view('accounts.index', compact('accounts', 'savings'));
     }
 
     public function store(Request $request)

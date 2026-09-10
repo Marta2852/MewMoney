@@ -64,6 +64,18 @@
 
             @endforelse
 
+            <div class="account-card savings-account">
+
+                <div class="account-name">
+                    Savings
+                </div>
+
+                <div class="account-balance">
+                    €{{ number_format($savings, 2) }}
+                </div>
+
+            </div>
+
         </div>
 
     </main>

@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
+use App\Models\Account;
+use App\Models\Category;
+use App\Models\SavingsGoal;
 
 class Transaction extends Model
 {
@@ -12,6 +15,7 @@ class Transaction extends Model
         'user_id',
         'account_id',
         'category_id',
+        'savings_goal_id',
         'transaction_type',
         'amount',
         'description',
@@ -31,5 +35,10 @@ class Transaction extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function savingsGoal(): BelongsTo
+    {
+        return $this->belongsTo(SavingsGoal::class);
     }
 }

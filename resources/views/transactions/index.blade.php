@@ -193,7 +193,7 @@
                         <p>
                             {{ $transaction->transaction_date }}
                             · {{ $transaction->account->account_name }}
-                            · {{ $transaction->category->category_name }}
+                            · {{ $transaction->category->category_name ?? 'Transfer' }}
                         </p>
 
                     </div>

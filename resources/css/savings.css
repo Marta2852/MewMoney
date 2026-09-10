@@ -1,0 +1,92 @@
+.savings {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+.savings h1 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.savings-subtitle {
+    color: #666;
+}
+
+.savings-form {
+    background: white;
+    padding: 24px;
+    margin-top: 30px;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+}
+
+.savings-form h2 {
+    margin-bottom: 20px;
+}
+
+.savings-form form {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.savings-form input {
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+}
+
+.savings-form button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #222;
+    color: white;
+    cursor: pointer;
+}
+
+.savings-goals {
+    margin-top: 35px;
+}
+
+.savings-goals h2 {
+    margin-bottom: 20px;
+}
+
+.savings-card {
+    background: white;
+    padding: 24px;
+    margin-bottom: 15px;
+    border-radius: 14px;
+    border: 1px solid #e5e7eb;
+}
+
+.savings-card-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.progress-bar {
+    height: 10px;
+    background: #e5e7eb;
+    border-radius: 10px;
+    margin: 18px 0 10px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: #222;
+    border-radius: 10px;
+}
+
+.savings-card p {
+    color: #777;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.no-savings {
+    color: #777;
+}

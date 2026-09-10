@@ -23,7 +23,8 @@
                 Accounts
             </a>
 
-            <a href="#" class="disabled-link">
+            <a href="{{ route('savings') }}"
+               class="{{ request()->routeIs('savings') ? 'active' : '' }}">
                 Savings
             </a>
         </div>
