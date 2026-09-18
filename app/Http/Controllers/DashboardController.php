@@ -29,10 +29,27 @@ class DashboardController extends Controller
             ->whereYear('transaction_date', now()->year)
             ->sum('amount');
 
+        $expensesByCategory = $user->transactions()
+            ->with('category')
+            ->where('transaction_type', 'expense')
+            ->whereMonth('transaction_date', now()->month)
+            ->whereYear('transaction_date', now()->year)
+            ->get()
+            ->groupBy(function ($transaction) {
+                return $transaction->category
+                    ? $transaction->category->category_name
+                    : 'Uncategorized';
+            })
+            ->map(function ($transactions) {
+                return $transactions->sum('amount');
+            });
+
             return view('dashboard', compact(
                 'totalBalance',
                 'incomeThisMonth', 
                 'expensesThisMonth',
-                'savedThisMonth'));
+                'savedThisMonth',
+                'expensesByCategory'
+            ));
     }
 }

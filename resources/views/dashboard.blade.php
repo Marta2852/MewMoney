@@ -1,6 +1,12 @@
 @push('styles')
-    @vite('resources/css/dashboard.css')
+    @vite(['resources/css/dashboard.css',
+            'resources/js/dashboard.js'])
 @endpush
+
+<script>
+    window.expenseCategoryLabels = @json($expensesByCategory->keys());
+    window.expenseCategoryData = @json($expensesByCategory->values());
+</script>
 
 <x-app-layout>
 
@@ -47,6 +53,14 @@
             </div>
 
         </div>
+
+        <div class="dashboard-chart">
+        <h2>Expenses by Category</h2>
+
+        <div class="chart-container">
+            <canvas id="expensesChart"></canvas>
+        </div>
+    </div>
 
     </main>
 
