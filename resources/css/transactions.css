@@ -72,13 +72,15 @@
     margin-bottom: 15px;
 }
 
-.expense-filters {
+.expense-filters,
+.transaction-type-filters {
     display: flex;
     padding: 18px 0;
     gap: 10px;
 }
 
-.expense-filters a {
+.expense-filters a,
+.transaction-type-filters a {
     padding: 8px 18px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
@@ -92,7 +94,8 @@
     background: #f5f5f5;
 }
 
-.expense-filters a.active {
+.expense-filters a.active,
+.transaction-type-filters a.active {
     background: #222;
     color: white;
     border-color: #222;
@@ -128,3 +131,4 @@
 .no-transactions {
     color: #777;
 }
+

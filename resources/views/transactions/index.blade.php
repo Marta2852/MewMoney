@@ -89,6 +89,7 @@
                     @foreach ($accounts as $account)
                         <option value="{{ $account->id }}">
                             {{ $account->account_name }}
+                            (€{{ number_format($account->balance, 2) }})
                         </option>
                     @endforeach
 
@@ -174,6 +175,28 @@
                 </form>
             @endif
 
+        </div>
+
+        <div class="transaction-type-filters">
+            <a href="{{ route('transactions', ['period' => $period, 'date' => $date, 'type' => 'all']) }}"
+            class="{{ $type === 'all' ? 'active' : '' }}">
+                All
+            </a>
+
+            <a href="{{ route('transactions', ['period' => $period, 'date' => $date, 'type' => 'income']) }}"
+            class="{{ $type === 'income' ? 'active' : '' }}">
+                Income
+            </a>
+
+            <a href="{{ route('transactions', ['period' => $period, 'date' => $date, 'type' => 'expense']) }}"
+            class="{{ $type === 'expense' ? 'active' : '' }}">
+                Expense
+            </a>
+
+            <a href="{{ route('transactions', ['period' => $period, 'date' => $date, 'type' => 'transfer']) }}"
+            class="{{ $type === 'transfer' ? 'active' : '' }}">
+                Transfer
+            </a>
         </div>
 
 

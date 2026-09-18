@@ -55,7 +55,7 @@ class SavingsGoalController extends Controller
             'user_id' => auth()->id(),
             'account_id' => $account->id,
             'savings_goal_id' => $goal->id,
-            'transaction_type' => 'expense',
+            'transaction_type' => 'transfer',
             'amount' => $request->amount,
             'description' => 'Transfer to ' . $goal->goal_name,
             'transaction_date' => now(),

@@ -9,6 +9,8 @@ class TransactionController extends Controller
     public function index(Request $request)
 {
     $period = $request->input('period', 'month');
+    $type = $request->input('type', 'all');
+
     $date = $request->input(
         'date',
         $period === 'month'
@@ -17,8 +19,11 @@ class TransactionController extends Controller
     );
 
     $query = auth()->user()->transactions()
-        ->with(['account', 'category'])
-        ->where('transaction_type', 'expense');
+        ->with(['account', 'category']);
+
+    if ($type !== 'all') {
+        $query->where('transaction_type', $type);
+    }
 
     if ($period === 'month') {
         $query->whereMonth('transaction_date', date('m', strtotime($date)))
@@ -50,7 +55,8 @@ class TransactionController extends Controller
         'accounts',
         'categories',
         'period',
-        'date'
+        'date',
+        'type'
     ));
 }
 
