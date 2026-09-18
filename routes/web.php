@@ -6,6 +6,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SavingsGoalController;
+use App\Http\Controllers\DashboardController;
 use App\Models\Account;
 use App\Models\Transaction;
 use App\Models\SavingsGoal;
@@ -14,11 +15,9 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    $totalBalance = auth()->user()->accounts()->sum('balance');
-
-    return view('dashboard', compact('totalBalance'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::get('/accounts', [AccountController::class, 'index'])
     ->middleware(['auth'])

@@ -26,7 +26,7 @@
                 <p class="dashboard-card-title">Income This Month</p>
 
                 <div class="dashboard-card-amount">
-                    €0.00
+                    €{{ number_format($incomeThisMonth, 2) }}
                 </div>
             </div>
 
@@ -34,7 +34,15 @@
                 <p class="dashboard-card-title">Expenses This Month</p>
 
                 <div class="dashboard-card-amount">
-                    €0.00
+                    €{{ number_format($expensesThisMonth, 2) }}
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <p class="dashboard-card-title">Saved This Month</p>
+
+                <div class="dashboard-card-amount">
+                    €{{ number_format($savedThisMonth, 2) }}
                 </div>
             </div>
 
