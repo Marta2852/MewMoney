@@ -47,6 +47,7 @@ Route::post('/savings', [SavingsGoalController::class, 'store'])
     ->name('savings.store');
 
 Route::post('/savings/add', [SavingsGoalController::class, 'addMoney'])
+    ->middleware(['auth'])
     ->name('savings.add');
 
 Route::middleware('auth')->group(function () {

@@ -44,12 +44,22 @@ class DashboardController extends Controller
                 return $transactions->sum('amount');
             });
 
+            $savingsGoals = $user->savingsGoals()->get();
+
+            $recentTransactions = $user->transactions()
+                ->with('category')
+                ->orderBy('transaction_date', 'desc')
+                ->take(5)
+                ->get();
+
             return view('dashboard', compact(
                 'totalBalance',
                 'incomeThisMonth', 
                 'expensesThisMonth',
                 'savedThisMonth',
-                'expensesByCategory'
+                'expensesByCategory',
+                'savingsGoals',
+                'recentTransactions'
             ));
     }
 }
