@@ -72,6 +72,14 @@ class TransactionController extends Controller
         ]);
 
         $account = auth()->user()->accounts()->findOrFail($request->account_id);
+        if (
+            $request->transaction_type === 'expense' &&
+            $account->balance < $request->amount
+        ) {
+            return back()->withErrors([
+                'amount' => 'Insufficient funds in the selected account.',
+            ])->withInput();
+        }
 
         $category = auth()->user()->categories()->findOrFail($request->category_id);
 
@@ -81,22 +89,24 @@ class TransactionController extends Controller
             ])->withInput();
         }
 
-        auth()->user()->transactions()->create([
-            'account_id' => $account->id,
-            'category_id' => $category->id,
-            'transaction_type' => $request->transaction_type,
-            'amount' => $request->amount,
-            'description' => $request->description,
-            'transaction_date' => $request->transaction_date,
-        ]);
+        DB::transaction(function () use ($request, $account, $category) {
+            auth()->user()->transactions()->create([
+                'account_id' => $account->id,
+                'category_id' => $category->id,
+                'transaction_type' => $request->transaction_type,
+                'amount' => $request->amount,
+                'description' => $request->description,
+                'transaction_date' => $request->transaction_date,
+            ]);
 
-        if ($request->transaction_type === 'income') {
-            $account->balance += $request->amount;
-        } else {
-            $account->balance -= $request->amount;
-        }
+            if ($request->transaction_type === 'income') {
+                $account->balance += $request->amount;
+            } else {
+                $account->balance -= $request->amount;
+            }
 
-        $account->save();
+            $account->save();
+        });
 
         return redirect()->route('transactions');
     }

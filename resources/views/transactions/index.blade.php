@@ -54,6 +54,8 @@
 
             <h2>Add Transaction</h2>
 
+            
+
             <form method="POST" action="{{ route('transactions.store') }}">
                 @csrf
 
@@ -114,6 +116,13 @@
                 </button>
 
             </form>
+            @if ($errors->any())
+            <div class="form-errors">
+                @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+            @endif
 
         </div>
 

@@ -43,26 +43,28 @@ class SavingsGoalController extends Controller
 
         $goal = auth()->user()->savingsGoals()->findOrFail($request->goal_id);
         $account = auth()->user()->accounts()->findOrFail($request->account_id);
+    
 
         if ($account->balance < $request->amount) {
-            return redirect()->route('savings')
-            ->with('error', 'Insufficient funds in the selected account.');
+            return back()->withErrors([
+                'amount' => 'Insufficient funds in the selected account.',
+            ])->withInput();
         }
 
-        $account->decrement('balance', $request->amount);
-        $goal->increment('current_amount', $request->amount);
-        Transaction::create([
-            'user_id' => auth()->id(),
-            'account_id' => $account->id,
-            'savings_goal_id' => $goal->id,
-            'transaction_type' => 'transfer',
-            'amount' => $request->amount,
-            'description' => 'Transfer to ' . $goal->goal_name,
-            'transaction_date' => now(),
-        ]);
-
+        DB::transaction(function () use ($request, $account, $goal) {
+            $account->decrement('balance', $request->amount);
+            $goal->increment('current_amount', $request->amount);
+            Transaction::create([
+                'user_id' => auth()->id(),
+                'account_id' => $account->id,
+                'savings_goal_id' => $goal->id,
+                'transaction_type' => 'transfer',
+                'amount' => $request->amount,
+                'description' => 'Transfer to ' . $goal->goal_name,
+                'transaction_date' => now(),
+            ]);
+        });
        
-
         return redirect()->route('savings');
     }
 }
