@@ -4,15 +4,51 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\DB;
 
 class SavingsGoalController extends Controller
 {
     public function index()
-    {
-        $savingsGoals = auth()->user()->savingsGoals()->get();
+{
+    $savingsGoals = auth()->user()->savingsGoals()->get();
 
-        return view('savings.index', compact('savingsGoals'));
+    $savingsTransactions = auth()->user()->transactions()
+        ->where('transaction_type', 'transfer')
+        ->whereNotNull('savings_goal_id')
+        ->orderBy('transaction_date')
+        ->get();
+
+    $savingsGrowth = [];
+
+    foreach ($savingsGoals as $goal) {
+
+        $totalSaved = 0;
+        $goalData = [];
+
+        $goalTransactions = $savingsTransactions
+            ->where('savings_goal_id', $goal->id);
+
+        foreach ($goalTransactions as $transaction) {
+
+            $totalSaved += $transaction->amount;
+
+            $goalData[] = [
+                'date' => \Carbon\Carbon::parse($transaction->transaction_date)
+                    ->format('M d'),
+                'month' => \Carbon\Carbon::parse($transaction->transaction_date)
+                    ->format('M Y'),
+                'amount' => $totalSaved,
+            ];
+        }
+
+        $savingsGrowth[$goal->goal_name] = $goalData;
     }
+
+    return view('savings.index', compact(
+        'savingsGoals',
+        'savingsGrowth'
+    ));
+}
 
     public function store(Request $request)
     {

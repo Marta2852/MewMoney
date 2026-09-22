@@ -1,6 +1,13 @@
 @push('styles')
-    @vite('resources/css/savings.css')
+    @vite([
+        'resources/css/savings.css',
+        'resources/js/savings.js'
+        ])
 @endpush
+
+<script>
+    window.savingsGrowth = @json($savingsGrowth);
+</script>
 
 <x-app-layout>
 
@@ -132,64 +139,72 @@
 
         <!-- Savings goals -->
 
-        <div class="savings-goals">
+        <div class="savings-layout">
 
-            <h2>Your Savings Goals</h2>
+    <div class="savings-growth">
+        <h2>Savings Growth</h2>
 
-            @forelse ($savingsGoals as $goal)
+        <div class="savings-chart-container">
+            <canvas id="savingsGrowthChart"></canvas>
+        </div>
+    </div>
 
-                <div class="savings-card">
+    <div class="savings-goals">
+        <h2>Your Savings Goals</h2>
 
-                    <div class="savings-card-header">
+        @forelse ($savingsGoals as $goal)
 
-                        <strong>
-                            {{ $goal->goal_name }}
-                        </strong>
+            <div class="savings-card">
 
-                        <span>
-                            €{{ number_format($goal->current_amount, 2) }}
-                            /
-                            €{{ number_format($goal->target_amount, 2) }}
-                        </span>
+                <div class="savings-card-header">
+                    <strong>
+                        {{ $goal->goal_name }}
+                    </strong>
 
-                    </div>
-
-                    @php
-                        $progress = $goal->target_amount > 0
-                            ? ($goal->current_amount / $goal->target_amount) * 100
-                            : 0;
-
-                        $progress = min($progress, 100);
-                    @endphp
-
-                    <div class="progress-bar">
-                        <div
-                            class="progress"
-                            style="width: {{ $progress }}%"
-                        ></div>
-                    </div>
-
-                    <p>
-                        {{ number_format($progress, 0) }}% saved
-                    </p>
-
-                    @if ($goal->target_date)
-                        <p>
-                            Target date: {{ $goal->target_date }}
-                        </p>
-                    @endif
-
+                    <span>
+                        €{{ number_format($goal->current_amount, 2) }}
+                        /
+                        €{{ number_format($goal->target_amount, 2) }}
+                    </span>
                 </div>
 
-            @empty
+                @php
+                    $progress = $goal->target_amount > 0
+                        ? ($goal->current_amount / $goal->target_amount) * 100
+                        : 0;
 
-                <p class="no-savings">
-                    You don't have any savings goals yet.
+                    $progress = min($progress, 100);
+                @endphp
+
+                <div class="progress-bar">
+                    <div
+                        class="progress"
+                        style="width: {{ $progress }}%">
+                    </div>
+                </div>
+
+                <p>
+                    {{ number_format($progress, 0) }}% saved
                 </p>
 
-            @endforelse
+                @if ($goal->target_date)
+                    <p>
+                        Target date: {{ $goal->target_date }}
+                    </p>
+                @endif
 
-        </div>
+            </div>
+
+        @empty
+
+            <p class="no-savings">
+                You don't have any savings goals yet.
+            </p>
+
+        @endforelse
+    </div>
+
+</div>
 
     </main>
 
