@@ -1,5 +1,21 @@
 import Chart from 'chart.js/auto';
 
+const completedToggle = document.getElementById('completedToggle');
+const completedGoals = document.getElementById('completedGoals');
+const completedArrow = document.getElementById('completedArrow');
+
+if (completedToggle) {
+    completedToggle.addEventListener('click', () => {
+        completedGoals.classList.toggle('open');
+
+        if (completedGoals.classList.contains('open')) {
+            completedArrow.textContent = '▲';
+        } else {
+            completedArrow.textContent = '▼';
+        }
+    });
+}
+
 const chart = document.getElementById('savingsGrowthChart');
 
 if (chart) {

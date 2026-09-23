@@ -102,12 +102,10 @@
                             Select savings goal
                         </option>
 
-                        @foreach ($savingsGoals as $goal)
-
+                        @foreach ($activeGoals as $goal)
                             <option value="{{ $goal->id }}">
                                 {{ $goal->goal_name }}
                             </option>
-
                         @endforeach
 
                         </select>
@@ -138,10 +136,8 @@
 
 
         <!-- Savings goals -->
-
-        <div class="savings-layout">
-
-    <div class="savings-growth">
+    <div class="savings-layout">
+        <div class="savings-growth">
         <h2>Savings Growth</h2>
 
         <div class="savings-chart-container">
@@ -152,7 +148,13 @@
     <div class="savings-goals">
         <h2>Your Savings Goals</h2>
 
-        @forelse ($savingsGoals as $goal)
+        <!-- Active Goals -->
+         @if ($activeGoals->count() > 0)
+            <h3 class="goals-section-title">
+                Active Goals
+            </h3>
+
+            @foreach ($activeGoals as $goal)
 
             <div class="savings-card">
 
@@ -194,17 +196,78 @@
                 @endif
 
             </div>
+            @endforeach
+        @endif
 
-        @empty
+        <!-- Completed Goals -->
+        @if ($completedGoals->count() > 0)
+            <button
+                type="button"
+                class="completed-toggle"
+                id="completedToggle"
+            >
 
+            <span>
+                Completed ({{ $completedGoals->count() }})
+            </span>
+
+            <span id="completedArrow">
+                   ▼
+                </span>
+            </button>
+
+            <div
+                class="completed-goals"
+                id="completedGoals"
+            >
+
+            @foreach ($completedGoals as $goal)
+                <div class="savings-card completed-card">
+                    <div class="savings-card-header">
+                        <strong>
+                            {{ $goal->goal_name }}
+                        </strong>
+
+                        <span>
+                            Completed
+                        </span>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div
+                            class="progress"
+                            style="width: 100%">
+                        </div>
+                    </div>
+
+                    <p>
+                        €{{ number_format($goal->current_amount, 2) }}
+                        /
+                        €{{ number_format($goal->target_amount, 2) }}
+                        - 100%
+                    </p>
+
+                    <button
+                        type="button"
+                        class="see-growth-btn"
+                        data-goal="{{ $goal->goal_name }}"
+                    >
+                        See Growth
+                    </button>
+                </div>
+            @endforeach
+            </div>
+            @endif
+
+            @if ($activeGoals->count() === 0 && $completedGoals->count() === 0)
             <p class="no-savings">
                 You don't have any savings goals yet.
             </p>
 
-        @endforelse
-    </div>
+        @endif
+        </div>
 
-</div>
+    </div>
 
     </main>
 

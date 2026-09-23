@@ -11,6 +11,13 @@ class SavingsGoalController extends Controller
     public function index()
 {
     $savingsGoals = auth()->user()->savingsGoals()->get();
+    
+    $activeGoals = $savingsGoals->filter(function ($goal) {
+        return $goal->current_amount < $goal->target_amount;
+    });
+    $completedGoals = $savingsGoals->filter(function ($goal) {
+        return $goal->current_amount >= $goal->target_amount;
+    });
 
     $savingsTransactions = auth()->user()->transactions()
         ->where('transaction_type', 'transfer')
@@ -46,6 +53,8 @@ class SavingsGoalController extends Controller
 
     return view('savings.index', compact(
         'savingsGoals',
+        'activeGoals',
+        'completedGoals',
         'savingsGrowth'
     ));
 }

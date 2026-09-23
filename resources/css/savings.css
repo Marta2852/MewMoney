@@ -81,7 +81,7 @@
 
 .savings-goals {
     margin-top: 0;
-    max-height: 448px;
+    max-height: 548px;
     overflow-y: auto;
 }
 
@@ -149,5 +149,60 @@
 
 .form-errors p {
     margin: 0;
+}
+
+.goals-section-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #777;
+    margin: 0 0 15px;
+}
+
+.completed-toggle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    padding: 12px 0;
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #555;
+}
+
+.completed-goals {
+    display: none;
+}
+
+.completed-goals.open {
+    display: block;
+}
+
+.completed-card {
+    background: #fafafa;
+}
+
+.completed-card .savings-card-header span {
+    color: #777;
+    font-size: 13px;
+}
+
+.see-growth-btn {
+    margin-top: 10px;
+    padding: 8px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.see-growth-btn:hover {
+    background: #f5f5f5;
 }
 
