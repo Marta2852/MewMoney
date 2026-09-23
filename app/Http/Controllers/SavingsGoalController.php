@@ -79,6 +79,14 @@ class SavingsGoalController extends Controller
 
         $goal = auth()->user()->savingsGoals()->findOrFail($request->goal_id);
         $account = auth()->user()->accounts()->findOrFail($request->account_id);
+        
+        $remaining = (float) $goal->target_amount - (float) $goal->current_amount;
+
+        if ($request->amount > $remaining) {
+            return back()->withErrors([
+                'amount' => 'You can only add €' . number_format($remaining, 2) . ' to this goal.',
+            ])->withInput();
+        }
     
 
         if ($account->balance < $request->amount) {
