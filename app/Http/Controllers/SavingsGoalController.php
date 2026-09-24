@@ -45,6 +45,7 @@ class SavingsGoalController extends Controller
                 'month' => \Carbon\Carbon::parse($transaction->transaction_date)
                     ->format('M Y'),
                 'amount' => $totalSaved,
+                'added' => (float) $transaction->amount,
             ];
         }
 

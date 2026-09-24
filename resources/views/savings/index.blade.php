@@ -7,6 +7,10 @@
 
 <script>
     window.savingsGrowth = @json($savingsGrowth);
+
+    window.activeGoals = @json(
+        $activeGoals->pluck('goal_name')->values()
+    );
 </script>
 
 <x-app-layout>
@@ -263,7 +267,6 @@
             <p class="no-savings">
                 You don't have any savings goals yet.
             </p>
-
         @endif
         </div>
 
