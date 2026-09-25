@@ -45,6 +45,12 @@ class DashboardController extends Controller
             });
 
             $savingsGoals = $user->savingsGoals()->get();
+            $activeGoals = $savingsGoals->filter(function ($goal) {
+                return $goal->current_amount < $goal->target_amount;
+            });
+            $completedGoals = $savingsGoals->filter(function ($goal) {
+                return $goal->current_amount >= $goal->target_amount;
+            });
 
             $recentTransactions = $user->transactions()
                 ->with('category')
@@ -59,6 +65,8 @@ class DashboardController extends Controller
                 'savedThisMonth',
                 'expensesByCategory',
                 'savingsGoals',
+                'activeGoals',
+                'completedGoals',
                 'recentTransactions'
             ));
     }

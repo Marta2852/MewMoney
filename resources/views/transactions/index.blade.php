@@ -246,6 +246,12 @@
 
         </div>
 
+        @if ($transactions->hasPages())
+            <nav class="transaction-pagination" aria-label="Transaction pages">
+                {{ $transactions->links() }}
+            </nav>
+        @endif
+
     </main>
 
 

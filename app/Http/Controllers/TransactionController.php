@@ -45,7 +45,8 @@ class TransactionController extends Controller
 
     $transactions = $query
         ->latest('transaction_date')
-        ->get();
+        ->paginate(10)
+        ->withQueryString();
 
     $accounts = auth()->user()->accounts;
     $categories = auth()->user()->categories;

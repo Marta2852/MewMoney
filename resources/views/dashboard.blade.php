@@ -65,43 +65,104 @@
         </div>
 
         <div class="dashboard-savings">
-            <h2>Savings Goals</h2>
+            <h2>Your Savings Goals</h2>
 
-            @forelse ($savingsGoals as $goal)
+            <div class="savings-goals-content">
+            @if ($activeGoals->count() > 0)
+                <h3 class="goals-section-title">
+                    Active Goals
+                </h3>
 
-                @php
-                    $progress = $goal->target_amount > 0
-                        ? ($goal->current_amount / $goal->target_amount) * 100
-                        : 0;
+                <div class="active-goals-list">
+                    @foreach ($activeGoals as $goal)
+                        @php
+                            $progress = $goal->target_amount > 0
+                                ? ($goal->current_amount / $goal->target_amount) * 100
+                                : 0;
 
-                    $progress = min($progress, 100);
-                @endphp
+                            $progress = min($progress, 100);
+                        @endphp
 
-                <div class="savings-goal">
-                    <div class="savings-goal-header">
-                        <span>{{ $goal->goal_name }}</span>
+                        <div class="savings-card">
+                            <div class="savings-card-header">
+                                <strong>
+                                    {{ $goal->goal_name }}
+                                </strong>
 
-                        <span>
-                            €{{ number_format($goal->current_amount, 2) }}
-                            / €{{ number_format($goal->target_amount, 2) }}
-                        </span>
-                    </div>
+                                <span>
+                                    €{{ number_format($goal->current_amount, 2) }}
+                                    /
+                                    €{{ number_format($goal->target_amount, 2) }}
+                                </span>
+                            </div>
 
-                    <div class="progress-bar">
-                        <div
-                            class="progress-bar-fill"
-                            style="width: {{ $progress }}%">
+                            <div class="progress-bar">
+                                <div
+                                    class="progress"
+                                    style="width: {{ $progress }}%">
+                                </div>
+                            </div>
+
+                            <p>
+                                {{ number_format($progress, 0) }}% saved
+                            </p>
+
+                            @if ($goal->target_date)
+                                <p>
+                                    Target date: {{ $goal->target_date }}
+                                </p>
+                            @endif
                         </div>
-                    </div>
-
-                    <p>{{ number_format($progress, 0) }}% saved</p>
+                    @endforeach
                 </div>
+            @endif
 
-            @empty
+            @if ($activeGoals->count() === 0 && $completedGoals->count() === 0)
+                <p class="no-savings">You don't have any savings goals yet.</p>
+            @endif
 
-                <p>No savings goals yet.</p>
+            @if ($completedGoals->count() > 0)
+                <button
+                    type="button"
+                    class="completed-toggle"
+                    id="completedToggle"
+                    aria-expanded="false"
+                    aria-controls="completedGoals"
+                >
+                    <span>
+                        Completed ({{ $completedGoals->count() }})
+                    </span>
 
-            @endforelse
+                    <span id="completedArrow" aria-hidden="true">▼</span>
+                </button>
+
+                <div
+                    class="completed-goals"
+                    id="completedGoals"
+                    hidden
+                >
+                    @foreach ($completedGoals as $goal)
+                        <div class="savings-card completed-card">
+                            <div class="savings-card-header">
+                                <strong>{{ $goal->goal_name }}</strong>
+                                <span>Completed</span>
+                            </div>
+
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 100%"></div>
+                            </div>
+
+                            <p>
+                                €{{ number_format($goal->current_amount, 2) }}
+                                /
+                                €{{ number_format($goal->target_amount, 2) }}
+                                - 100%
+                            </p>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+            </div>
         </div>
 
     </div>
