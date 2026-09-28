@@ -7,6 +7,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SavingsGoalController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminController;
 use App\Models\Account;
 use App\Models\Transaction;
 use App\Models\SavingsGoal;
@@ -55,5 +56,21 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/admin', [AdminController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('admin.index');
+
+Route::get('/admin/users/{user}', [AdminController::class, 'show'])
+    ->middleware('auth')
+    ->name('admin.users.show');
+
+Route::patch('/admin/users/{user}/role', [AdminController::class, 'updateRole'])
+    ->middleware('auth')
+    ->name('admin.users.updateRole');
+
+Route::delete('/admin/users/{user}', [AdminController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('admin.users.destroy');
 
 require __DIR__.'/auth.php';

@@ -1,3 +1,4 @@
+
 <nav class="navigation">
 
     <div class="nav-container">
@@ -27,6 +28,14 @@
                class="{{ request()->routeIs('savings') ? 'active' : '' }}">
                 Savings
             </a>
+
+            @if (Auth::user()->is_admin)
+                <a href="{{ route('admin.index') }}"
+                   class="{{ request()->routeIs('admin.index') ? 'active' : '' }}">
+                    Admin
+                </a>
+            @endif
+
         </div>
 
         <div class="nav-user">
@@ -46,3 +55,4 @@
     </div>
 
 </nav>
+

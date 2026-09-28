@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Transaction;
 use App\Models\SavingsGoal;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'is_admin'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -30,6 +30,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_admin' => 'boolean',
         ];
     }
 
