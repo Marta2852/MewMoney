@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --color-cream: #FFF8F0;
+    --color-beige: #F3E5D0;
+    --color-cat-brown: #8B6F47;
+    --color-peach: #F4A261;
+    --color-pink: #F6C6C6;
+    --color-dark-brown: #3E3025;
+    --color-sage: #A8C3A0;
+    --color-soft-red: #E88B8B;
+    --color-border: #DDCDB8;
+    --color-sage-text: #526A4C;
+    --color-red-text: #8F4848;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,10 +24,101 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f5f6fa;
-    color: #222;
+    background: var(--color-cream);
+    color: var(--color-dark-brown);
 }
 
 a {
     text-decoration: none;
+}
+
+.bg-gray-100,
+.bg-gray-50 {
+    background-color: var(--color-cream);
+}
+
+.bg-gray-200,
+.bg-white {
+    background-color: var(--color-beige);
+}
+
+.text-gray-700,
+.text-gray-800,
+.text-gray-900 {
+    color: var(--color-dark-brown);
+}
+
+.text-gray-500,
+.text-gray-600 {
+    color: var(--color-cat-brown);
+}
+
+.border-gray-300 {
+    border-color: var(--color-border);
+}
+
+.bg-indigo-600 {
+    background-color: var(--color-peach);
+    color: var(--color-dark-brown);
+}
+
+.bg-gray-800,
+.bg-gray-900 {
+    background-color: var(--color-peach);
+    color: var(--color-dark-brown);
+}
+
+.bg-gray-800.text-white,
+.bg-gray-900.text-white {
+    color: var(--color-dark-brown);
+}
+
+.hover\:bg-gray-50:hover,
+.hover\:bg-gray-100:hover,
+.focus\:bg-gray-100:focus,
+.bg-indigo-50,
+.bg-indigo-100,
+.focus\:bg-indigo-100:focus {
+    background-color: var(--color-pink);
+}
+
+.hover\:bg-gray-700:hover,
+.focus\:bg-gray-700:focus,
+.active\:bg-gray-900:active,
+.hover\:bg-indigo-700:hover,
+.focus\:bg-indigo-800:focus {
+    background-color: var(--color-cat-brown);
+    color: var(--color-cream);
+}
+
+.focus\:ring-indigo-500:focus {
+    --tw-ring-color: var(--color-peach);
+}
+
+.border-indigo-400,
+.border-indigo-700,
+.focus\:border-indigo-500:focus,
+.focus\:border-indigo-700:focus {
+    border-color: var(--color-peach);
+}
+
+.text-indigo-700 {
+    color: var(--color-cat-brown);
+}
+
+.text-indigo-800 {
+    color: var(--color-dark-brown);
+}
+
+.focus\:text-indigo-800:focus,
+.hover\:text-gray-900:hover {
+    color: var(--color-dark-brown);
+}
+
+.text-green-600 {
+    color: var(--color-sage-text);
+}
+
+.text-red-600 {
+    color: var(--color-red-text);
 }

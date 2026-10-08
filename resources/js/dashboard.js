@@ -17,6 +17,20 @@ if (completedToggle && completedGoals && completedArrow) {
 const chart = document.getElementById('expensesChart');
 
 if (chart) {
+    const palette = getComputedStyle(document.documentElement);
+    const chartColors = [
+        '--color-peach',
+        '--color-sage',
+        '--color-pink',
+        '--color-cat-brown',
+        '--color-soft-red',
+        '--color-dark-brown'
+    ].map((color) => palette.getPropertyValue(color).trim());
+    const categoryColors = window.expenseCategoryData.map(
+        (_, index) => chartColors[index % chartColors.length]
+    );
+    const chartBorderColor = palette.getPropertyValue('--color-beige').trim();
+
     new Chart(chart, {
         type: 'pie',
 
@@ -24,7 +38,10 @@ if (chart) {
             labels: window.expenseCategoryLabels,
             datasets: [
                 {
-                    data: window.expenseCategoryData
+                    data: window.expenseCategoryData,
+                    backgroundColor: categoryColors,
+                    borderColor: chartBorderColor,
+                    borderWidth: 2
                 }
             ]
         },

@@ -10,15 +10,15 @@
 }
 
 .accounts-subtitle {
-    color: #666;
+    color: var(--color-cat-brown);
 }
 
 .account-form {
-    background: white;
+    background: var(--color-beige);
     padding: 24px;
     margin-top: 30px;
     border-radius: 14px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-border);
 }
 
 .account-form h2 {
@@ -32,16 +32,18 @@
 
 .account-form input {
     padding: 10px 12px;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--color-border);
     border-radius: 8px;
+    background: var(--color-cream);
+    color: var(--color-dark-brown);
 }
 
 .account-form button {
     padding: 10px 18px;
     border: none;
     border-radius: 8px;
-    background: #222;
-    color: white;
+    background: var(--color-peach);
+    color: var(--color-dark-brown);
     cursor: pointer;
 }
 
@@ -53,14 +55,25 @@
 }
 
 .account-card {
-    background: white;
+    position: relative;
+    background: var(--color-beige);
     padding: 24px;
     border-radius: 14px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-border);
+}
+
+.account-card::after {
+    content: "🐾";
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+    font-size: 35px;
+    opacity: 0.12;
+    transform: rotate(-15deg);
 }
 
 .account-name {
-    color: #777;
+    color: var(--color-cat-brown);
 }
 
 .account-balance {

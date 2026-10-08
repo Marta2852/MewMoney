@@ -15,7 +15,7 @@
 }
 
 .dashboard-subtitle {
-    color: #666;
+    color: var(--color-cat-brown);
 }
 
 .dashboard-cards {
@@ -26,14 +26,25 @@
 }
 
 .dashboard-card {
-    background: white;
+    position: relative;
+    background: var(--color-beige);
     padding: 24px;
     border-radius: 14px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-border);
+}
+
+.dashboard-card::after {
+    content: "🐾";
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+    font-size: 35px;
+    opacity: 0.12;
+    transform: rotate(-15deg);
 }
 
 .dashboard-card-title {
-    color: #777;
+    color: var(--color-cat-brown);
     font-size: 14px;
 }
 
@@ -41,6 +52,14 @@
     font-size: 28px;
     font-weight: 700;
     margin-top: 10px;
+}
+
+.dashboard-card--income {
+    border-top: 4px solid var(--color-sage);
+}
+
+.dashboard-card--expense {
+    border-top: 4px solid var(--color-soft-red);
 }
 
 .dashboard-middle {
@@ -53,10 +72,10 @@
 .dashboard-chart,
 .dashboard-savings,
 .dashboard-transactions {
-    background: white;
+    background: var(--color-beige);
     padding: 24px;
     border-radius: 14px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-border);
 }
 
 .dashboard-savings {
@@ -76,14 +95,14 @@
 .progress-bar {
     width: 100%;
     height: 12px;
-    background: #e5e5e5;
+    background: var(--color-pink);
     border-radius: 10px;
     overflow: hidden;
 }
 
 .progress-bar-fill {
     height: 100%;
-    background: #333;
+    background: var(--color-sage);
     border-radius: 10px;
 }
 
@@ -92,11 +111,11 @@
 }
 
 .savings-card {
-    background: #fafafa;
+    background: var(--color-cream);
     padding: 14px;
     margin-bottom: 10px;
     border-radius: 10px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-border);
 }
 
 .savings-card-header {
@@ -112,7 +131,7 @@
 
 .savings-card-header span {
     font-size: 13px;
-    color: #555;
+    color: var(--color-cat-brown);
     white-space: nowrap;
 }
 
@@ -123,12 +142,12 @@
 
 .progress {
     height: 100%;
-    background: #222;
+    background: var(--color-sage);
     border-radius: 10px;
 }
 
 .savings-card p {
-    color: #777;
+    color: var(--color-cat-brown);
     font-size: 12px;
     margin: 4px 0 0;
 }
@@ -136,7 +155,7 @@
 .goals-section-title {
     font-size: 13px;
     text-transform: uppercase;
-    color: #777;
+    color: var(--color-cat-brown);
     margin: 0 0 12px;
 }
 
@@ -148,13 +167,13 @@
     margin-top: 18px;
     padding: 10px 0;
     border: none;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid var(--color-border);
     background: none;
     cursor: pointer;
     font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
-    color: #555;
+    color: var(--color-cat-brown);
 }
 
 .completed-goals {
@@ -176,7 +195,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 0;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-border);
 }
 
 .recent-transaction p {

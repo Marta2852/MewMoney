@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="dashboard-card">
+            <div class="dashboard-card dashboard-card--income">
                 <p class="dashboard-card-title">Income This Month</p>
 
                 <div class="dashboard-card-amount">
@@ -36,7 +36,7 @@
                 </div>
             </div>
 
-            <div class="dashboard-card">
+            <div class="dashboard-card dashboard-card--expense">
                 <p class="dashboard-card-title">Expenses This Month</p>
 
                 <div class="dashboard-card-amount">

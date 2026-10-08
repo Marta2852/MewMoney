@@ -1,6 +1,6 @@
 .navigation {
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
+    background: var(--color-beige);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .nav-container {
@@ -14,10 +14,34 @@
     justify-content: space-between;
 }
 
+.mewmoney-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-dark-brown);
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.mewmoney-logo img {
+    width: 48px;
+    height: 48px;
+    display: block;
+    object-fit: cover;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    transition: transform 0.2s ease;
+}
+
+.mewmoney-logo:hover img {
+    transform: scale(1.04) rotate(-1deg);
+}
+
 .nav-logo {
     font-size: 22px;
     font-weight: 700;
-    color: #222;
+    color: var(--color-dark-brown);
 }
 
 .nav-links {
@@ -26,17 +50,17 @@
 }
 
 .nav-links a {
-    color: #666;
+    color: var(--color-cat-brown);
     text-decoration: none;
     transition: 0.2s;
 }
 
 .nav-links a:hover {
-    color: #222;
+    color: var(--color-dark-brown);
 }
 
 .nav-links a.active {
-    color: #222;
+    color: var(--color-peach);
     font-weight: 600;
 }
 
@@ -48,16 +72,16 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    color: #555;
+    color: var(--color-cat-brown);
 }
 
 .nav-user button {
     border: none;
     background: none;
-    color: #666;
+    color: var(--color-cat-brown);
     cursor: pointer;
 }
 
 .nav-user button:hover {
-    color: #222;
+    color: var(--color-dark-brown);
 }

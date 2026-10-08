@@ -214,7 +214,7 @@
 
             @forelse ($transactions as $transaction)
 
-                <div class="transaction-card">
+                <div class="transaction-card transaction-card--{{ $transaction->transaction_type }}">
 
                     <div class="transaction-info">
 

@@ -12,15 +12,15 @@
 }
 
 .savings-subtitle {
-    color: #666;
+    color: var(--color-cat-brown);
 }
 
 .savings-form {
-    background: white;
+    background: var(--color-beige);
     padding: 24px;
     margin-top: 30px;
     border-radius: 14px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-border);
 }
 
 .savings-form h2 {
@@ -35,16 +35,18 @@
 
 .savings-form input {
     padding: 10px 12px;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--color-border);
     border-radius: 8px;
+    background: var(--color-cream);
+    color: var(--color-dark-brown);
 }
 
 .savings-form button {
     padding: 10px 18px;
     border: none;
     border-radius: 8px;
-    background: #222;
-    color: white;
+    background: var(--color-peach);
+    color: var(--color-dark-brown);
     cursor: pointer;
 }
 
@@ -58,10 +60,10 @@
 
 .savings-growth,
 .savings-goals {
-    background: white;
+    background: var(--color-beige);
     padding: 24px;
     border-radius: 14px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-border);
     box-sizing: border-box;
 }
 
@@ -86,11 +88,11 @@
 }
 
 .savings-card {
-    background: #fafafa;
+    background: var(--color-cream);
     padding: 18px;
     margin-bottom: 12px;
     border-radius: 12px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--color-border);
 }
 
 .savings-card:last-child {
@@ -110,13 +112,13 @@
 
 .savings-card-header span {
     font-size: 14px;
-    color: #555;
+    color: var(--color-cat-brown);
     white-space: nowrap;
 }
 
 .progress-bar {
     height: 10px;
-    background: #e5e7eb;
+    background: var(--color-pink);
     border-radius: 10px;
     margin: 16px 0 8px;
     overflow: hidden;
@@ -124,27 +126,27 @@
 
 .progress {
     height: 100%;
-    background: #222;
+    background: var(--color-sage);
     border-radius: 10px;
 }
 
 .savings-card p {
-    color: #777;
+    color: var(--color-cat-brown);
     font-size: 13px;
     margin-top: 5px;
 }
 
 .no-savings {
-    color: #777;
+    color: var(--color-cat-brown);
 }
 
 .form-errors {
     margin-top: 20px;
     padding: 12px 16px;
-    border: 1px solid #f0b4b4;
+    border: 1px solid var(--color-soft-red);
     border-radius: 8px;
-    background: #fff1f1;
-    color: #b42318;
+    background: var(--color-pink);
+    color: var(--color-dark-brown);
 }
 
 .form-errors p {
@@ -154,7 +156,7 @@
 .goals-section-title {
     font-size: 14px;
     text-transform: uppercase;
-    color: #777;
+    color: var(--color-cat-brown);
     margin: 0 0 15px;
 }
 
@@ -166,13 +168,13 @@
     margin-top: 25px;
     padding: 12px 0;
     border: none;
-    border-top: 1px solid #e5e7eb;
+    border-top: 1px solid var(--color-border);
     background: none;
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
-    color: #555;
+    color: var(--color-cat-brown);
 }
 
 .completed-goals {
@@ -184,26 +186,26 @@
 }
 
 .completed-card {
-    background: #fafafa;
+    background: var(--color-cream);
 }
 
 .completed-card .savings-card-header span {
-    color: #777;
+    color: var(--color-cat-brown);
     font-size: 13px;
 }
 
 .see-growth-btn {
     margin-top: 10px;
     padding: 8px 14px;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--color-border);
     border-radius: 8px;
-    background: white;
+    background: var(--color-beige);
     cursor: pointer;
     font-size: 13px;
 }
 
 .see-growth-btn:hover {
-    background: #f5f5f5;
+    background: var(--color-pink);
 }
 
 .back-to-growth {
@@ -213,9 +215,9 @@
     margin-right: 10px;
     font-size: 14px;
     cursor: pointer;
-    color: #666;
+    color: var(--color-cat-brown);
 }
 
 .back-to-growth:hover {
-    color: #222;
+    color: var(--color-dark-brown);
 }
