@@ -354,6 +354,98 @@
     background: var(--color-pink);
 }
 
+.transaction-item {
+    margin-bottom: 16px;
+}
+
+.transaction-item .transaction-card {
+    margin-bottom: 0;
+}
+
+.transaction-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.transaction-actions form {
+    margin: 0;
+}
+
+.transaction-actions button,
+.transaction-edit-actions button {
+    padding: 8px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-dark-brown);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    transition: background 0.2s ease;
+}
+
+.transaction-actions .edit-transaction-btn,
+.transaction-edit-actions button:first-child {
+    background: var(--color-peach);
+}
+
+.transaction-actions .delete-transaction-btn {
+    background: var(--color-cream);
+}
+
+.transaction-edit-form {
+    padding: 24px;
+    margin-top: 12px;
+    background: var(--color-beige);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+}
+
+.transaction-edit-form[hidden] {
+    display: none;
+}
+
+.transaction-edit-form h2 {
+    margin-bottom: 16px;
+}
+
+.transaction-edit-form form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.transaction-edit-form label {
+    font-weight: 600;
+    color: var(--color-dark-brown);
+}
+
+.transaction-edit-form input,
+.transaction-edit-form select {
+    width: 100%;
+    max-width: 450px;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-cream);
+    color: var(--color-dark-brown);
+    box-sizing: border-box;
+}
+
+.transaction-edit-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.transaction-edit-actions .cancel-transaction-edit {
+    background: var(--color-cream);
+}
+
 /* Smaller screens */
 @media (max-width: 650px) {
     .category-section {
@@ -372,5 +464,28 @@
     .category-edit-form {
         padding: 18px;
     }
+
+    .transaction-item .transaction-card {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .transaction-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .transaction-edit-form {
+        padding: 18px;
+    }
 }
 
+
+.form-success {
+    margin-top: 20px;
+    padding: 12px 16px;
+    border: 1px solid var(--color-sage);
+    border-radius: 8px;
+    background: var(--color-beige);
+    color: var(--color-dark-brown);
+}

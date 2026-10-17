@@ -23,6 +23,20 @@ if (chart) {
     const goals = window.savingsGrowth || {};
     const activeGoals = window.activeGoals || [];
 
+    function cumulativeAmounts(goalData, dates) {
+        let runningTotal = 0;
+
+        return dates.map(date => {
+            const pointsForDate = goalData.filter(point => point.date === date);
+
+            if (pointsForDate.length > 0) {
+                runningTotal = Number(pointsForDate[pointsForDate.length - 1].amount);
+            }
+
+            return runningTotal;
+        });
+    }
+
     let allDates = [];
 
     activeGoals.forEach(goalName => {
@@ -50,15 +64,7 @@ if (chart) {
 
         return Object.entries(goalsToShow).map(
             ([goalName, goalData]) => {
-                const data = allDates.map(date => {
-                    const pointsForDate = goalData.filter(
-                        item => item.date === date
-                    );
-
-                    return pointsForDate.reduce((dailyTotal, point) => {
-                        return dailyTotal + Number(point.added ?? 0);
-                    }, 0);
-                });
+                const data = cumulativeAmounts(goalData, allDates);
 
                 return {
                     label: goalName,
@@ -140,19 +146,8 @@ if (chart) {
                 return;
             }
 
-            const dailyAmounts = new Map();
-
-            goalData.forEach(point => {
-                const currentTotal = dailyAmounts.get(point.date) || 0;
-
-                dailyAmounts.set(
-                    point.date,
-                    currentTotal + Number(point.added ?? 0)
-                );
-            });
-
-            const goalDates = Array.from(dailyAmounts.keys());
-            const goalAmounts = Array.from(dailyAmounts.values());
+            const goalDates = [...new Set(goalData.map(point => point.date))];
+            const goalAmounts = cumulativeAmounts(goalData, goalDates);
 
             savingsChart.data.labels = goalDates;
             savingsChart.data.datasets = [

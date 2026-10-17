@@ -33,12 +33,14 @@
     flex-wrap: wrap;
 }
 
-.savings-form input {
+.savings-form input,
+.savings-form select {
     padding: 10px 12px;
     border: 1px solid var(--color-border);
     border-radius: 8px;
     background: var(--color-cream);
     color: var(--color-dark-brown);
+    font: inherit;
 }
 
 .savings-form button {
@@ -104,6 +106,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
 }
 
 .savings-card-header strong {
@@ -114,6 +117,95 @@
     font-size: 14px;
     color: var(--color-cat-brown);
     white-space: nowrap;
+}
+
+.savings-card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-goal-btn,
+.delete-goal-btn {
+    padding: 6px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.edit-goal-btn {
+    background: var(--color-sage);
+    color: var(--color-dark-brown);
+}
+
+.delete-goal-btn {
+    background: var(--color-soft-red);
+    color: white;
+}
+
+.goal-edit-form,
+.goal-delete-form {
+    margin-top: 12px;
+}
+
+.goal-edit-form h3 {
+    margin-bottom: 12px;
+}
+
+.goal-edit-form form,
+.goal-delete-form form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.goal-edit-form input {
+    min-width: 0;
+    flex: 1 1 160px;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-cream);
+    color: var(--color-dark-brown);
+    font: inherit;
+}
+
+.goal-edit-form button[type="submit"] {
+    padding: 8px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-peach);
+    color: var(--color-dark-brown);
+    font: inherit;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.goal-edit-form button[type="submit"]:hover {
+    background: var(--color-pink);
+}
+
+.goal-delete-form {
+    padding-top: 12px;
+    border-top: 1px solid var(--color-border);
+}
+
+.goal-delete-form form {
+    margin-top: 10px;
+}
+
+.goal-delete-form button:not(.delete-goal-btn),
+.goal-edit-form button[type="button"] {
+    padding: 6px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-cream);
+    color: var(--color-dark-brown);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
 }
 
 .progress-bar {

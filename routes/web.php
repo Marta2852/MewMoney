@@ -34,6 +34,11 @@ Route::get('/transactions', [TransactionController::class, 'index'])
 Route::post('/transactions', [TransactionController::class, 'store'])
     ->middleware(['auth'])
     ->name('transactions.store');
+Route::put('/transactions/{id}', [TransactionController::class, 'update'])
+    ->name('transactions.update');
+Route::delete('/transactions/{id}', [TransactionController::class, 'destroy'])
+    ->name('transactions.destroy');
+;
 
 Route::post('/categories', [CategoryController::class, 'store'])
     ->middleware(['auth'])
@@ -64,6 +69,14 @@ Route::post('/savings', [SavingsGoalController::class, 'store'])
 Route::post('/savings/add', [SavingsGoalController::class, 'addMoney'])
     ->middleware(['auth'])
     ->name('savings.add');
+
+Route::put('/savings/{id}', [SavingsGoalController::class, 'update'])
+    ->middleware(['auth'])
+    ->name('savings.update');
+
+Route::delete('/savings/{id}', [SavingsGoalController::class, 'destroy'])
+    ->middleware(['auth'])
+    ->name('savings.destroy');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

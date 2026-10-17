@@ -63,6 +63,16 @@
                     placeholder="Starting amount"
                 >
 
+                <select name="starting_account_id" id="starting_account_id">
+                    <option value="">Select an account</option>
+
+                    @foreach ($accounts as $account)
+                        <option value="{{ $account->id }}">
+                            {{ $account->account_name }} (€{{ number_format($account->balance, 2) }})
+                        </option>
+                    @endforeach
+                </select>
+
                 <input
                     type="date"
                     name="target_date"
@@ -142,7 +152,7 @@
         <!-- Savings goals -->
     <div class="savings-layout">
         <div class="savings-growth">
-        <h2>Savings Growth</h2>
+        <h2>Savings Activity</h2>
 
         <div class="savings-chart-container">
             <canvas id="savingsGrowthChart"></canvas>
@@ -166,6 +176,24 @@
                     <strong>
                         {{ $goal->goal_name }}
                     </strong>
+
+                    <div class="savings-card-actions">
+                        <button
+                            type="button"
+                            class="edit-goal-btn"
+                            onclick="document.getElementById('edit-goal-{{ $goal->id }}').hidden = false"
+                        >
+                            Edit
+                        </button>
+
+                        <button
+                            type="button"
+                            class="delete-goal-btn"
+                            onclick="document.getElementById('delete-goal-{{ $goal->id }}').hidden = false"
+                        >
+                            Delete
+                        </button>
+                    </div>
 
                     <span>
                         €{{ number_format($goal->current_amount, 2) }}
@@ -198,6 +226,71 @@
                         Target date: {{ $goal->target_date }}
                     </p>
                 @endif
+
+                <div id="edit-goal-{{ $goal->id }}" hidden class="goal-edit-form">
+                    <h3>Edit Savings Goal</h3>
+
+                    <form method="POST" action="{{ route('savings.update', $goal->id) }}">
+                        @csrf
+                        @method('PUT')
+
+                        <input
+                            type="text"
+                            name="goal_name"
+                            value="{{ $goal->goal_name }}"
+                            placeholder="Goal name"
+                            required
+                        >
+
+                        <input
+                            type="number"
+                            name="target_amount"
+                            value="{{ $goal->target_amount }}"
+                            step="0.01"
+                            min="0.01"
+                            placeholder="Target amount"
+                            required
+                        >
+
+                        <input
+                            type="date"
+                            name="target_date"
+                            value="{{ $goal->target_date }}"
+                        >
+
+                        <button type="submit">Save Changes</button>
+
+                        <button
+                            type="button"
+                            onclick="document.getElementById('edit-goal-{{ $goal->id }}').hidden = true"
+                        >
+                            Cancel
+                        </button>
+                    </form>
+                </div>
+
+                <div id="delete-goal-{{ $goal->id }}" hidden class="goal-delete-form">
+                    <p>
+                        Are you sure you want to delete
+                        <strong>{{ $goal->goal_name }}</strong>?
+                    </p>
+
+                    <form method="POST" action="{{ route('savings.destroy', $goal->id) }}">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="delete-goal-btn">
+                            Yes, Delete
+                        </button>
+
+                        <button
+                            type="button"
+                            onclick="document.getElementById('delete-goal-{{ $goal->id }}').hidden = true"
+                        >
+                            Cancel
+                        </button>
+                    </form>
+                </div>
 
             </div>
             @endforeach
@@ -232,6 +325,24 @@
                             {{ $goal->goal_name }}
                         </strong>
 
+                        <div class="savings-card-actions">
+                            <button
+                                type="button"
+                                class="edit-goal-btn"
+                                onclick="document.getElementById('edit-goal-{{ $goal->id }}').hidden = false"
+                            >
+                                Edit
+                            </button>
+
+                            <button
+                                type="button"
+                                class="delete-goal-btn"
+                                onclick="document.getElementById('delete-goal-{{ $goal->id }}').hidden = false"
+                            >
+                                Delete
+                            </button>
+                        </div>
+
                         <span>
                             Completed
                         </span>
@@ -258,6 +369,71 @@
                     >
                         See Growth
                     </button>
+
+                    <div id="edit-goal-{{ $goal->id }}" hidden class="goal-edit-form">
+                        <h3>Edit Savings Goal</h3>
+
+                        <form method="POST" action="{{ route('savings.update', $goal->id) }}">
+                            @csrf
+                            @method('PUT')
+
+                            <input
+                                type="text"
+                                name="goal_name"
+                                value="{{ $goal->goal_name }}"
+                                placeholder="Goal name"
+                                required
+                            >
+
+                            <input
+                                type="number"
+                                name="target_amount"
+                                value="{{ $goal->target_amount }}"
+                                step="0.01"
+                                min="0.01"
+                                placeholder="Target amount"
+                                required
+                            >
+
+                            <input
+                                type="date"
+                                name="target_date"
+                                value="{{ $goal->target_date }}"
+                            >
+
+                            <button type="submit">Save Changes</button>
+
+                            <button
+                                type="button"
+                                onclick="document.getElementById('edit-goal-{{ $goal->id }}').hidden = true"
+                            >
+                                Cancel
+                            </button>
+                        </form>
+                    </div>
+
+                    <div id="delete-goal-{{ $goal->id }}" hidden class="goal-delete-form">
+                        <p>
+                            Are you sure you want to delete
+                            <strong>{{ $goal->goal_name }}</strong>?
+                        </p>
+
+                        <form method="POST" action="{{ route('savings.destroy', $goal->id) }}">
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="delete-goal-btn">
+                                Yes, Delete
+                            </button>
+
+                            <button
+                                type="button"
+                                onclick="document.getElementById('delete-goal-{{ $goal->id }}').hidden = true"
+                            >
+                                Cancel
+                            </button>
+                        </form>
+                    </div>
                 </div>
             @endforeach
             </div>
