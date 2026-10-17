@@ -3,9 +3,8 @@
 
     <div class="nav-container">
 
-        <a href="{{ route('dashboard') }}" class="mewmoney-logo">
-            <img src="{{ asset('images/Mewmoney.png') }}" alt="MewMoney">
-            MewMoney
+       <a href="{{ route('dashboard') }}" class="mewmoney-logo">
+            <img src="{{ asset('images/Mewmoney.png') }}">
         </a>
 
         <div class="nav-links">

@@ -64,6 +64,9 @@
     background: var(--color-peach);
     color: var(--color-dark-brown);
     cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .expense-section {
@@ -207,3 +210,167 @@
 .form-errors p {
     margin: 0;
 }
+
+
+
+/* Category section */
+.category-section {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.category-section .category-form {
+    flex: 1;
+    min-width: 0;
+}
+
+.view-categories-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    padding: 12px 20px;
+    background: var(--color-peach);
+    color: var(--color-dark-brown);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+}
+
+.view-categories-btn:hover {
+    background: var(--color-pink);
+}
+
+/* Category cards */
+.category-item {
+    margin-bottom: 12px;
+}
+
+.category-item .transaction-card {
+    margin-bottom: 0;
+}
+
+/* Edit and delete buttons */
+.category-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-actions a,
+.category-actions button,
+.category-edit-actions button {
+    padding: 10px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font: inherit;
+    font-size: 14px;
+    color: var(--color-dark-brown);
+    transition: background 0.2s ease;
+}
+
+.category-actions .edit-category-btn {
+    background: var(--color-peach);
+}
+
+.category-actions .edit-category-btn:hover {
+    background: var(--color-pink);
+}
+
+.category-actions form button {
+    background: var(--color-cream);
+}
+
+.category-actions form button:hover {
+    background: var(--color-pink);
+}
+
+/* Expandable edit form */
+.category-edit-form {
+    padding: 24px;
+    margin-top: 12px;
+    background: var(--color-beige);
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+}
+
+.category-edit-form[hidden] {
+    display: none;
+}
+
+.category-edit-form form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.category-edit-form label {
+    font-weight: 600;
+    color: var(--color-dark-brown);
+}
+
+.category-edit-form input,
+.category-edit-form select {
+    width: 100%;
+    max-width: 450px;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-cream);
+    color: var(--color-dark-brown);
+    box-sizing: border-box;
+}
+
+.category-edit-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.category-edit-actions button:first-child {
+    background: var(--color-peach);
+}
+
+.category-edit-actions button:first-child:hover {
+    background: var(--color-pink);
+}
+
+.category-edit-actions .cancel-edit-btn {
+    background: var(--color-cream);
+}
+
+.category-edit-actions .cancel-edit-btn:hover {
+    background: var(--color-pink);
+}
+
+/* Smaller screens */
+@media (max-width: 650px) {
+    .category-section {
+        flex-direction: column;
+    }
+
+    .view-categories-btn {
+        align-self: flex-start;
+    }
+
+    .category-item .transaction-card {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .category-edit-form {
+        padding: 18px;
+    }
+}
+

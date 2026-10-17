@@ -38,6 +38,10 @@
                     Add Account
                 </button>
 
+                <button type="submit">
+                    Edit Accounts
+                </button>
+
             </form>
 
         </div>

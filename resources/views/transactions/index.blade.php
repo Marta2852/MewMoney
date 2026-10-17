@@ -44,6 +44,10 @@
                     Create Category
                 </button>
 
+                <a href="{{ route('categories.index') }}" class="view-categories-btn">
+                    View Categories
+                </a>
+
             </form>
 
         </div>
