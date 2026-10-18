@@ -15,6 +15,13 @@ class AccountController extends Controller
         return view('accounts.index', compact('accounts', 'savings'));
     }
 
+    public function edit()
+    {
+        $accounts = auth()->user()->accounts;
+
+        return view('accounts.edit', compact('accounts'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -30,8 +37,16 @@ class AccountController extends Controller
         return redirect()->route('accounts');
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        
+        $validated = $request->validate([
+            'account_name' => 'required|string|max:255',
+        ]);
+
+        $account = $request->user()->accounts()->findOrFail($id);
+        $account->update($validated);
+
+        return redirect()->route('accounts.edit')
+            ->with('success', 'Account name updated successfully.');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class TransactionController extends Controller
 {
@@ -66,7 +67,7 @@ class TransactionController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'transaction_type' => 'required|in:income,expense',
             'amount' => 'required|numeric|min:0.01',
             'description' => 'nullable|string|max:255',
@@ -75,44 +76,47 @@ class TransactionController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        $account = auth()->user()->accounts()->findOrFail($request->account_id);
-        if (
-            $request->transaction_type === 'expense' &&
-            $account->balance < $request->amount
-        ) {
-            return back()->withErrors([
-                'amount' => 'Insufficient funds in the selected account.',
-            ])->withInput();
-        }
+        $user = auth()->user();
+        $category = $user->categories()
+            ->where('category_type', $validated['transaction_type'])
+            ->findOrFail($validated['category_id']);
 
-        $category = auth()->user()->categories()->findOrFail($request->category_id);
+        DB::transaction(function () use ($validated, $user, $category) {
+            $account = $user->accounts()
+                ->lockForUpdate()
+                ->findOrFail($validated['account_id']);
 
-        if ($category->category_type !== $request->transaction_type) {
-            return back()->withErrors([
-                'category_id' => 'The selected category does not match the transaction type.',
-            ])->withInput();
-        }
+            $amount = (float) $validated['amount'];
 
-        DB::transaction(function () use ($request, $account, $category) {
-            auth()->user()->transactions()->create([
+            if (
+                $validated['transaction_type'] === 'expense'
+                && (float) $account->balance < $amount
+            ) {
+                throw ValidationException::withMessages([
+                    'amount' => 'Kontā nav pietiekami daudz līdzekļu.',
+                ]);
+            }
+
+            $user->transactions()->create([
                 'account_id' => $account->id,
                 'category_id' => $category->id,
-                'transaction_type' => $request->transaction_type,
-                'amount' => $request->amount,
-                'description' => $request->description,
-                'transaction_date' => $request->transaction_date,
+                'transaction_type' => $validated['transaction_type'],
+                'amount' => $amount,
+                'description' => $validated['description'] ?? null,
+                'transaction_date' => $validated['transaction_date'],
             ]);
 
-            if ($request->transaction_type === 'income') {
-                $account->balance += $request->amount;
+            if ($validated['transaction_type'] === 'income') {
+                $account->balance = (float) $account->balance + $amount;
             } else {
-                $account->balance -= $request->amount;
+                $account->balance = (float) $account->balance - $amount;
             }
 
             $account->save();
         });
 
-        return redirect()->route('transactions');
+        return redirect()->route('transactions')
+            ->with('success', 'Darījums veiksmīgi pievienots.');
     }
 
     public function update(Request $request, $id)

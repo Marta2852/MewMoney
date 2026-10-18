@@ -210,44 +210,60 @@ class SavingsGoalController extends Controller
 
     public function addMoney(Request $request)
     {
-        $request->validate([
-            'goal_id' => 'required|exists:savings_goals,id',
-            'account_id' => 'required|exists:accounts,id',
+        $validated = $request->validate([
+            'goal_id' => 'required|integer',
+            'account_id' => 'required|integer',
             'amount' => 'required|numeric|min:0.01',
         ]);
 
-        $goal = auth()->user()->savingsGoals()->findOrFail($request->goal_id);
-        $account = auth()->user()->accounts()->findOrFail($request->account_id);
-        
-        $remaining = (float) $goal->target_amount - (float) $goal->current_amount;
+        $user = $request->user();
+        $amount = (float) $validated['amount'];
 
-        if ($request->amount > $remaining) {
-            return back()->withErrors([
-                'amount' => 'You can only add €' . number_format($remaining, 2) . ' to this goal.',
-            ])->withInput();
-        }
-    
+        DB::transaction(function () use ($user, $validated, $amount) {
+            $account = $user->accounts()
+                ->lockForUpdate()
+                ->findOrFail($validated['account_id']);
 
-        if ($account->balance < $request->amount) {
-            return back()->withErrors([
-                'amount' => 'Insufficient funds in the selected account.',
-            ])->withInput();
-        }
+            $goal = $user->savingsGoals()
+                ->lockForUpdate()
+                ->findOrFail($validated['goal_id']);
 
-        DB::transaction(function () use ($request, $account, $goal) {
-            $account->decrement('balance', $request->amount);
-            $goal->increment('current_amount', $request->amount);
-            Transaction::create([
-                'user_id' => auth()->id(),
+            if ((float) $account->balance < $amount) {
+                throw ValidationException::withMessages([
+                    'amount' => 'Insufficient funds in the selected account.',
+                ]);
+            }
+
+            $remaining = round(
+                (float) $goal->target_amount - (float) $goal->current_amount,
+                2
+            );
+
+            if ($amount > $remaining) {
+                throw ValidationException::withMessages([
+                    'amount' => 'You can only add €'
+                        . number_format(max(0, $remaining), 2)
+                        . ' to this goal.',
+                ]);
+            }
+
+            $account->balance = round((float) $account->balance - $amount, 2);
+            $goal->current_amount = round((float) $goal->current_amount + $amount, 2);
+
+            $account->save();
+            $goal->save();
+
+            $user->transactions()->create([
                 'account_id' => $account->id,
                 'savings_goal_id' => $goal->id,
                 'transaction_type' => 'transfer',
-                'amount' => $request->amount,
+                'amount' => $amount,
                 'description' => 'Transfer to ' . $goal->goal_name,
                 'transaction_date' => now(),
             ]);
-        });
-       
-        return redirect()->route('savings');
+        }, 3);
+
+        return redirect()->route('savings')
+            ->with('success', 'Money added to savings successfully.');
     }
 }

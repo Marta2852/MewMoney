@@ -135,13 +135,13 @@
 }
 
 .edit-goal-btn {
-    background: var(--color-sage);
+    background: var(--color-peach);
     color: var(--color-dark-brown);
 }
 
 .delete-goal-btn {
-    background: var(--color-soft-red);
-    color: white;
+    background: var(--color-peach);
+    color: var(--color-dark-brown);
 }
 
 .goal-edit-form,

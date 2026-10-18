@@ -37,12 +37,11 @@
                 <button type="submit">
                     Add Account
                 </button>
-
-                <button type="submit">
-                    Edit Accounts
-                </button>
-
             </form>
+
+            <a href="{{ route('accounts.edit') }}" class="edit-accounts-link">
+                Edit Accounts
+            </a>
 
         </div>
 
