@@ -35,7 +35,7 @@
                                 @csrf
                                 @method('PATCH')
 
-                                <button type="submit">
+                                <button type="submit" class="admin-role-button">
                                     {{ $user->is_admin ? 'Remove Admin' : 'Make Admin' }}
                                 </button>
                             </form>
