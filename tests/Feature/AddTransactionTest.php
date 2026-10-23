@@ -1,5 +1,4 @@
 <?php
-
 namespace Tests\Feature;
 
 use App\Models\User;
@@ -54,6 +53,151 @@ class AddTransactionTest extends TestCase
         $this->assertDatabaseHas('accounts', [
             'id' => $account->id,
             'balance' => 150,
+        ]);
+    }
+
+    public function test_user_can_add_an_expense_transaction(): void
+    {
+        $user = User::factory()->create();
+
+        $account = Account::create([
+            'user_id' => $user->id,
+            'account_name' => 'Main account',
+            'balance' => 100,
+        ]);
+
+        $category = Category::create([
+            'user_id' => $user->id,
+            'category_name' => 'Food',
+            'category_type' => 'expense',
+        ]);
+
+        $response = $this->actingAs($user)->post(
+            route('transactions.store'),
+            [
+                'transaction_type' => 'expense',
+                'amount' => 30,
+                'description' => 'Groceries',
+                'transaction_date' => now()->toDateString(),
+                'account_id' => $account->id,
+                'category_id' => $category->id,
+            ]
+        );
+
+        $response->assertRedirect(route('transactions'));
+
+        $this->assertDatabaseHas('transactions', [
+            'user_id' => $user->id,
+            'account_id' => $account->id,
+            'category_id' => $category->id,
+            'transaction_type' => 'expense',
+            'amount' => 30,
+            'description' => 'Groceries',
+        ]);
+
+        $this->assertDatabaseHas('accounts', [
+            'id' => $account->id,
+            'balance' => 70,
+        ]);
+    }
+
+    public function test_expense_is_rejected_when_balance_is_insufficient(): void
+    {
+        $user = User::factory()->create();
+
+        $account = Account::create([
+            'user_id' => $user->id,
+            'account_name' => 'Main account',
+            'balance' => 20,
+        ]);
+
+        $category = Category::create([
+            'user_id' => $user->id,
+            'category_name' => 'Food',
+            'category_type' => 'expense',
+        ]);
+
+        $response = $this->actingAs($user)->post(
+            route('transactions.store'),
+            [
+                'transaction_type' => 'expense',
+                'amount' => 50,
+                'description' => 'Groceries',
+                'transaction_date' => now()->toDateString(),
+                'account_id' => $account->id,
+                'category_id' => $category->id,
+            ]
+        );
+
+        $response->assertSessionHasErrors('amount');
+
+        $this->assertDatabaseMissing('transactions', [
+            'user_id' => $user->id,
+            'description' => 'Groceries',
+        ]);
+
+        $this->assertDatabaseHas('accounts', [
+            'id' => $account->id,
+            'balance' => 20,
+        ]);
+    }
+
+    public function test_transaction_rejects_zero_amount(): void
+    {
+        $user = User::factory()->create();
+
+        $account = Account::create([
+            'user_id' => $user->id,
+            'account_name' => 'Main account',
+            'balance' => 100,
+        ]);
+
+        $category = Category::create([
+            'user_id' => $user->id,
+            'category_name' => 'Salary',
+            'category_type' => 'income',
+        ]);
+
+        $response = $this->actingAs($user)->post(
+            route('transactions.store'),
+            [
+                'transaction_type' => 'income',
+                'amount' => 0,
+                'description' => 'Invalid income',
+                'transaction_date' => now()->toDateString(),
+                'account_id' => $account->id,
+                'category_id' => $category->id,
+            ]
+        );
+
+        $response->assertSessionHasErrors('amount');
+
+        $this->assertDatabaseMissing('transactions', [
+            'user_id' => $user->id,
+            'description' => 'Invalid income',
+        ]);
+
+        $this->assertDatabaseHas('accounts', [
+            'id' => $account->id,
+            'balance' => 100,
+        ]);
+    }
+
+    public function test_transaction_rejects_missing_required_fields(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->post(
+            route('transactions.store'),
+            []
+        );
+
+        $response->assertSessionHasErrors([
+            'transaction_type',
+            'amount',
+            'transaction_date',
+            'account_id',
+            'category_id',
         ]);
     }
 }
