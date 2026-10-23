@@ -116,7 +116,7 @@ class TransactionController extends Controller
         });
 
         return redirect()->route('transactions')
-            ->with('success', 'Darījums veiksmīgi pievienots.');
+            ->with('success', 'Transaction added successfully.');
     }
 
     public function update(Request $request, $id)
